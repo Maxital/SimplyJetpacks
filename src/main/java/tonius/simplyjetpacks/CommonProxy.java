@@ -1,25 +1,29 @@
 package tonius.simplyjetpacks;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import tonius.simplyjetpacks.config.MainConfig;
-import tonius.simplyjetpacks.event.JetpackMobHandler;
+import tonius.simplyjetpacks.crafting.PlatingReturnHandler;
+import tonius.simplyjetpacks.handler.EntityInteractHandler;
+import tonius.simplyjetpacks.handler.LivingTickHandler;
+import tonius.simplyjetpacks.handler.SyncHandler;
+import tonius.simplyjetpacks.setup.ParticleType;
+import cpw.mods.fml.common.FMLCommonHandler;
 
 public class CommonProxy {
-
+    
     public void registerHandlers() {
-        if (MainConfig.mobsUseJetpacks) {
-            MinecraftForge.EVENT_BUS.register(new JetpackMobHandler());
-        }
+        SimplyJetpacks.logger.info("Registering handlers");
+        FMLCommonHandler.instance().bus().register(new SyncHandler());
+        FMLCommonHandler.instance().bus().register(new PlatingReturnHandler());
+        MinecraftForge.EVENT_BUS.register(new EntityInteractHandler());
+        MinecraftForge.EVENT_BUS.register(new LivingTickHandler());
     }
-
-    public void sendPacketToServer(int packetType, int int1) {
+    
+    public void showJetpackParticles(World world, EntityLivingBase wearer, ParticleType particle) {
     }
-
-    public void sendPacketToServer(int packetType, boolean... booleans) {
+    
+    public void updateCustomKeybinds() {
     }
-
-    public void showJetpackParticles(World world, int entityID, int particle) {
-    }
-
+    
 }
